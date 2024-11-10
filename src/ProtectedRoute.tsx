@@ -1,6 +1,5 @@
 // src/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom';
-import fakeAuth from './auth';
 import { useAuth } from './Context/Auth';
 
 // ProtectedRoute component

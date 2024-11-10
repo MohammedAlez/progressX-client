@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
 import Login from './pages/Auth/Login';
 import Unauthorized from './pages/Unauthorized/Unauthorized';
@@ -40,7 +40,6 @@ import InstructorTakeAttendance from './pages/Instructor/Attendance/InstructorTa
 import CoursesProgress from './pages/Department/CoursesProgress';
 import AttendanceRates from './pages/Department/AttendanceRates';
 import ScanQr from './pages/Student/Attendance/ScanQr';
-import { useAuth } from './Context/Auth';
 // import AttendanceRates from './pages/Department/AttendanceRates';
 // import CoursesProgress from './pages/Department/CoursesProgress';
 
