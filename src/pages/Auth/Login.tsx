@@ -15,7 +15,7 @@ export default function Login(){
     const [allowButton, setAllowButton] = useState(false);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
-
+    console.log(error);
     const {onLoginSuccess} = useAuth()
 
     useEffect(()=>{
@@ -36,7 +36,7 @@ export default function Login(){
             const data = await login(rn, password);
             localStorage.setItem('token', data.token); // Store token locally
             console.log(data);
-            const decoded = jwtDecode(data.token)
+            const decoded:{role:string} = jwtDecode(data.token)
             console.log(decoded)
             onLoginSuccess(decoded); // Callback to update auth state in parent
 

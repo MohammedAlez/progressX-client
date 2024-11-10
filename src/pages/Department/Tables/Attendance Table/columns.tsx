@@ -1,15 +1,15 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { MoreHorizontal } from "lucide-react"
+// import { MoreHorizontal } from "lucide-react"
  
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../../../../components/ui/dropdown-menu"
-import { Button } from "../../../../components/ui/button"
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "../../../../components/ui/dropdown-menu"
+// import { Button } from "../../../../components/ui/button"
 
 export type Attendance = {
     id: string
@@ -58,9 +58,9 @@ export type Attendance = {
     {
         accessorKey: "percentage",
         header: "Percentage",
-        cell: ({ row }) => {
+        cell: () => {
           
-            const status = row.getValue('status')
+            // const status = row.getValue('status')
      
           return (
             <div className="flex  font-medium text-green-500">

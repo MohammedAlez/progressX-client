@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 
 import { IoIosMenu } from "react-icons/io";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
-import fakeAuth from "../auth";
-import { GrHomeRounded } from "react-icons/gr";
+// import fakeAuth from "../auth";
+// import { GrHomeRounded } from "react-icons/gr";
 import { FaAddressBook } from "react-icons/fa6";
 import { FaBookOpen } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
@@ -16,7 +16,7 @@ export default function SideBar(){
     const {user, logout} = useAuth();
     console.log(user);
     const [open, setOpen] = useState(window.innerWidth>1024?true:false);
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const location = useLocation()
 

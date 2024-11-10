@@ -6,7 +6,7 @@ export default function ScanQr() {
     const [scanResult, setScanResult] = useState('');
     const [error, setError] = useState(false);
     console.log(error);
-    
+
     useEffect(() => {
         console.log(scanResult);
     }, [scanResult]);
@@ -16,7 +16,7 @@ export default function ScanQr() {
         const scanner = new Html5QrcodeScanner(scannerId, {
             qrbox: { width: 250, height: 250 },
             fps: 5,
-        });
+        },false);
 
         scanner.render(
             (result) => {

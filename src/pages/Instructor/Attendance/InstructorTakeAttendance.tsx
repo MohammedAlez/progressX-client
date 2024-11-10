@@ -6,9 +6,9 @@ import StudentsTable from "./Student Table/StudentsTable";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
+    // DialogDescription,
     DialogHeader,
-    DialogTitle,
+    // DialogTitle,
     DialogTrigger,
   } from "../../../components/ui/dialog"
   
