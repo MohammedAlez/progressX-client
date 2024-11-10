@@ -1,4 +1,3 @@
-import { Button } from "../../../components/ui/button";
 import { useEffect, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import { QRCodeCanvas } from "qrcode.react";
@@ -6,7 +5,8 @@ import { QRCodeCanvas } from "qrcode.react";
 export default function ScanQr() {
     const [scanResult, setScanResult] = useState('');
     const [error, setError] = useState(false);
-
+    console.log(error);
+    
     useEffect(() => {
         console.log(scanResult);
     }, [scanResult]);

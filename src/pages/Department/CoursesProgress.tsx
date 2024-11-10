@@ -1,4 +1,4 @@
-import { CiCircleAlert } from "react-icons/ci";
+// import { CiCircleAlert } from "react-icons/ci";
 import CoursesTable from "./Tables/Courses Table/CoursesTable";
 import { Button } from "../../components/ui/button";
 

@@ -9,4 +9,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    // Other build options here...
+  },
+  logLevel: 'silent', // Set to 'silent' to suppress all logs
 })
