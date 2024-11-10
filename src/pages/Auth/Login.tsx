@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import fakeAuth from "../../auth";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../api  calls/authService";
+import { useAuth } from "../../Context/Auth";
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -12,7 +14,9 @@ export default function Login(){
     const [password,  setPassword] = useState('');
     const [allowButton, setAllowButton] = useState(false);
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
 
+    const {onLoginSuccess} = useAuth()
 
     useEffect(()=>{
         if(rn && password){
@@ -24,6 +28,31 @@ export default function Login(){
 
     const navigate = useNavigate();
 
+    const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
+        setError(false);
+        setLoading(true);
+        try {
+            const data = await login(rn, password);
+            localStorage.setItem('token', data.token); // Store token locally
+            console.log(data);
+            const decoded = jwtDecode(data.token)
+            console.log(decoded)
+            onLoginSuccess(decoded); // Callback to update auth state in parent
+
+            if(decoded.role=='student'){
+                navigate('/student/profile/main')
+            }else if(decoded.role=='instructor'){
+                navigate('/instructor/courses')
+            }else if(decoded.role=='admin'){
+                navigate('/department/home')
+            }
+        } catch (err) {
+            setError(true);
+        }finally{
+            setLoading(false)
+        }
+    };
 
     return (
         <div className="flex justify-center items-center mt-28">
@@ -39,10 +68,11 @@ export default function Login(){
                     <Input value={password} onChange={(e)=>setPassword(e.target.value)}  type="password" id="password" className="sm:min-w-[400px]"/>
                 </div>
 
-                <Button onClick={()=>{
+                <Button onClick={(e)=>{
                     setLoading(true)
                     setTimeout(()=>{
-                        fakeAuth.login('student', () => navigate(`/student/profile/main`));
+                        // fakeAuth.login('student', () => navigate(`/student/profile/main`));
+                        handleSubmit(e)
                     },2000)
                 }} disabled={!allowButton || loading} className={`w-full mt-8 font-bold bg-green-600 hover:bg-green-700`}>
                     {loading 

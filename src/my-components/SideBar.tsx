@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react"
 
 import { IoIosMenu } from "react-icons/io";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import fakeAuth from "../auth";
 import { GrHomeRounded } from "react-icons/gr";
 import { FaAddressBook } from "react-icons/fa6";
 import { FaBookOpen } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa";
+import { useAuth } from "../Context/Auth";
 
 
 export default function SideBar(){
 
+    const {user, logout} = useAuth();
+    console.log(user);
     const [open, setOpen] = useState(window.innerWidth>1024?true:false);
     const navigate = useNavigate()
 
     const location = useLocation()
-    console.log(location)
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,10 +26,16 @@ export default function SideBar(){
         }
         // Set up the event listener
         window.addEventListener('resize', handleResize);
-    
+
         // Clean up the event listener on component unmount
         return () => window.removeEventListener('resize', handleResize);
-      }, []);
+    }, []);
+
+
+    if (!user) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" replace />;
+    }
 
 
     return(
@@ -43,15 +51,17 @@ export default function SideBar(){
                             <img src="" alt="" className="w-14 h-14 rounded-full bg-red-300" />
                         </div>
                         <div className="">
-                            <h1 className="font-medium">Bouazza Mohammed alez</h1>
-                            <h1 className="text-gray-600 font-medium text-sm">Computer Science</h1>
+                            <h1 className="font-medium">{user.username}</h1>
+                            <h1 className="text-gray-600 font-medium text-sm">{user.role=='student' && 'Student'}</h1>
+                            <h1 className="text-gray-600 font-medium text-sm">{user.role=='instructor' && 'Instructor'}</h1>
+                            <h1 className="text-gray-600 font-medium text-sm">{user.role=='admin' && 'Department'}</h1>
                         </div>
 
                     </div>
                     <div className=" h-[1px] rounded-xl bg-slate-300 my-5 w-[90%] mx-auto"></div>
 
                     <div className="flex flex-col justify-between h-[80%]">
-                        {fakeAuth.role == 'student' &&
+                        {user.role == 'student' &&
                             <div className="flex flex-col gap-3">
                                 {/* <Link to='/student/home' className={`p-2 px-4 rounded-lg ${location.pathname=='/student/home' ? 'bg-gray-300' : 'bg-gray-200'} hover:bg-gray-300 font-medium flex gap-3 items-center`}><GrHomeRounded/> Home</Link> */}
                                 <Link to='/student/profile/main' className={`p-2 px-4 rounded-lg ${location.pathname=='/student/profile/main' ? 'bg-gray-300' : 'bg-gray-200'} hover:bg-gray-300 font-medium flex gap-3 items-center`}><FaRegUser/> Profile</Link>
@@ -59,13 +69,13 @@ export default function SideBar(){
                                 <Link to='/student/attendance/main' className={`p-2 px-4 rounded-lg ${location.pathname=='/student/attendance/main' ? 'bg-gray-300' : 'bg-gray-200'} hover:bg-gray-300 font-medium flex gap-3 items-center`}><FaBookOpen />Attendance</Link>
                             </div>
                         }
-                        {fakeAuth.role == 'instructor' &&
+                        {user.role == 'instructor' &&
                             <div className="flex flex-col gap-3">
                                 <Link to='/instructor/courses' className="p-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">Courses</Link>
                                 <Link to='/instructor/attendance' className="p-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">Attendance</Link>
                             </div>
                         }
-                        {fakeAuth.role == 'department' &&
+                        {user.role == 'admin' &&
                             <div className="flex flex-col gap-3">
                                 <Link to='/department/home' className="p-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">Home</Link>
                                 <Link to='/department/courses' className="p-2 px-4 rounded-lg bg-gray-200 hover:bg-gray-300 font-medium">Courses</Link>
@@ -73,7 +83,7 @@ export default function SideBar(){
                             </div>
                         }
                         <div className="">
-                            <Button className="bg-red-600 w-full hover:bg-red-700" onClick={()=>fakeAuth.logout(()=>navigate(`/login`))}>Log out</Button>
+                            <Button className="bg-red-600 w-full hover:bg-red-700" onClick={()=>logout()}>Log out</Button>
                         </div>
                     </div>
                 </div>

@@ -40,6 +40,7 @@ import InstructorTakeAttendance from './pages/Instructor/Attendance/InstructorTa
 import CoursesProgress from './pages/Department/CoursesProgress';
 import AttendanceRates from './pages/Department/AttendanceRates';
 import ScanQr from './pages/Student/Attendance/ScanQr';
+import { useAuth } from './Context/Auth';
 // import AttendanceRates from './pages/Department/AttendanceRates';
 // import CoursesProgress from './pages/Department/CoursesProgress';
 
@@ -181,7 +182,7 @@ const router = createBrowserRouter([
           {
             path: 'home',
             element: (
-              <ProtectedRoute allowedRoles={['department']}>
+              <ProtectedRoute allowedRoles={['admin']}>
                 <DepartmentHome />
               </ProtectedRoute>
             ),
@@ -189,7 +190,7 @@ const router = createBrowserRouter([
           {
             path: 'courses',
             element: (
-              <ProtectedRoute allowedRoles={['department']}>
+              <ProtectedRoute allowedRoles={['admin']}>
                 <CoursesProgress />
               </ProtectedRoute>
             ),
@@ -197,7 +198,7 @@ const router = createBrowserRouter([
           {
             path: 'attendance',
             element: (
-              <ProtectedRoute allowedRoles={['department']}>
+              <ProtectedRoute allowedRoles={['admin']}>
                 <AttendanceRates />
               </ProtectedRoute>
             ),
@@ -213,7 +214,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+
+  return (
+    <RouterProvider router={router} />
+  )
 }
 
 export default App;

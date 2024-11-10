@@ -1,15 +1,17 @@
 // src/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom';
 import fakeAuth from './auth';
+import { useAuth } from './Context/Auth';
 
 // ProtectedRoute component
 function ProtectedRoute({ children, allowedRoles }:{ children:any, allowedRoles:string[] }) {
-  if (!fakeAuth.isAuthenticated) {
+
+  const {user} = useAuth()
+
+  if (!user) {
     // Redirect to login if not authenticated
     return <Navigate to="/login" replace />;
-  }
-
-  if (allowedRoles && !allowedRoles.includes(fakeAuth.role!)) {
+  }else if (allowedRoles && !allowedRoles.includes(user.role)) {
     // Redirect to unauthorized page if role is not allowed
     return <Navigate to="/unauthorized" replace />;
   }
